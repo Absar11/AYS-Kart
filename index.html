@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover everyday essentials, lifestyle picks and more at AysKart.">
+  <meta name="theme-color" content="#092b4c">
+  <title>AysKart — Shop Smarter, Live Better</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/products.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <div class="announcement">Everyday finds. Thoughtful prices. <span>Welcome to AysKart.</span></div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#" aria-label="AysKart home">
+        <img class="brand-logo" src="https://res.cloudinary.com/dldif0za0/image/upload/v1794295278/AysKart_Logo_with_Orange_Horizon_Swoosh_vgfeeg.png" alt="AysKart">
+      </a>
+      <form class="search-box" id="searchForm" role="search">
+        <input id="searchInput" type="search" placeholder="Search products..." aria-label="Search products">
+        <button type="submit" aria-label="Search">⌕</button>
+      </form>
+      <nav class="header-actions">
+        <a href="#shop" class="nav-link">Shop</a>
+        <a href="#categories" class="nav-link">Categories</a>
+        <button class="cart-button" id="openCart" aria-label="Open shopping cart">
+          <span class="cart-icon">▱</span><span>Cart</span><b id="cartCount">0</b>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> THE EVERYDAY SHOPPING DESTINATION</p>
+          <h1>Good finds.<br><em>Great choices.</em></h1>
+          <p class="hero-description">Discover useful everyday essentials, lifestyle favourites and little things that make life better.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#shop">Explore products <span>↗</span></a>
+            <a class="text-link" href="#categories">Browse categories</a>
+          </div>
+          <div class="hero-note"><span class="note-check">✓</span> Simple shopping · Personal WhatsApp order support</div>
+        </div>
+        <div class="hero-art" aria-label="Featured shopping collection">
+          <div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div>
+          <div class="hero-card hero-card-main">
+            <div class="hero-card-top"><span>AYS</span><span>CURATED FINDS</span></div>
+            <div class="hero-shapes"><div class="shape shape-orange"></div><div class="shape shape-blue"></div><div class="shape shape-cream"></div></div>
+            <div class="hero-card-bottom"><strong>Find your<br>next favourite.</strong><span>AYS KART / 01</span></div>
+          </div>
+          <div class="floating-tag tag-top">JUST FOR YOU <b>✦</b></div>
+          <div class="floating-tag tag-bottom"><b>01</b> Explore something new</div>
+          <div class="hero-spark">✳</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <div class="container trust-items">
+        <div><b>01</b><span>Handpicked finds</span></div>
+        <div><b>02</b><span>Easy WhatsApp ordering</span></div>
+        <div><b>03</b><span>Personal order confirmation</span></div>
+      </div>
+    </section>
+
+    <section class="categories-section section" id="categories">
+      <div class="container">
+        <div class="section-heading">
+          <div><p class="eyebrow">EXPLORE YOUR INTERESTS</p><h2>Shop by <em>category</em></h2></div>
+          <p>From everyday essentials to things you simply love.</p>
+        </div>
+        <div class="category-list" id="categoryList">
+          <button class="category-chip active" data-category="All">All products</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="products-section section" id="shop">
+      <div class="container">
+        <div class="section-heading product-heading">
+          <div><p class="eyebrow">THE AYSKART EDIT</p><h2>Find your next <em>favourite.</em></h2></div>
+          <div class="product-tools">
+            <span id="resultsCount">Loading products...</span>
+            <select id="sortSelect" aria-label="Sort products">
+              <option value="featured">Featured</option>
+              <option value="price-low">Price: Low to high</option>
+              <option value="price-high">Price: High to low</option>
+              <option value="name">Name: A to Z</option>
+            </select>
+          </div>
+        </div>
+        <div class="product-grid" id="productGrid"></div>
+        <div class="empty-state hidden" id="emptyState">
+          <div>⌕</div><h3>No products found</h3><p>Try another search or category.</p>
+          <button class="btn btn-outline" id="clearFilters">Clear filters</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="wide-cta">
+      <div class="container cta-inner">
+        <div><p class="eyebrow">SHOPPING MADE SIMPLE</p><h2>See something you like?<br><em>Make it yours.</em></h2></div>
+        <a class="btn btn-light" href="#shop">Discover the collection <span>↗</span></a>
+        <div class="cta-decoration">A<span>K</span></div>
+      </div>
+    </section>
+
+    <section class="about-section section">
+      <div class="container about-grid">
+        <div class="about-symbol">A<span>✦</span></div>
+        <div><p class="eyebrow">A LITTLE ABOUT US</p><h2>Good choices<br>start <em>right here.</em></h2>
+          <p>AysKart brings a variety of useful, interesting and thoughtfully selected products together in one easy-to-browse place. Explore the collection and order directly through WhatsApp.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-main">
+      <div><a class="brand footer-brand" href="#"><img class="brand-logo" src="https://res.cloudinary.com/dldif0za0/image/upload/v1794295278/AysKart_Logo_with_Orange_Horizon_Swoosh_vgfeeg.png" alt="AysKart"></a><p>Your everyday destination for good finds.</p></div>
+      <div class="footer-links"><a href="#shop">Shop</a><a href="#categories">Categories</a><a href="mailto:hello@ayskart.in">Contact</a></div>
+    </div>
+    <div class="container footer-bottom"><span>© <span id="year"></span> AysKart. All rights reserved.</span><span>Made for everyday discoveries.</span></div>
+  </footer>
+
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true">
+    <div class="drawer-header"><div><p class="eyebrow">YOUR SELECTION</p><h2>Your cart <span id="drawerCount">(0)</span></h2></div><button class="icon-button" id="closeCart" aria-label="Close cart">×</button></div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="drawer-footer"><div class="subtotal-row"><span>Subtotal</span><strong id="cartSubtotal">₹0</strong></div><p>Delivery charges, if any, will be confirmed by the seller.</p><button class="btn btn-primary full-width" id="goCheckout">Proceed to checkout <span>↗</span></button></div>
+  </aside>
+
+  <div class="modal-backdrop" id="productModalBackdrop">
+    <div class="product-modal" role="dialog" aria-modal="true" aria-label="Product details">
+      <button class="icon-button modal-close" id="closeProductModal" aria-label="Close">×</button>
+      <div id="productModalContent"></div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="checkoutBackdrop">
+    <div class="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+      <button class="icon-button modal-close" id="closeCheckout" aria-label="Close">×</button>
+      <p class="eyebrow">ALMOST THERE</p><h2 id="checkoutTitle">Complete your <em>order.</em></h2>
+      <p class="checkout-intro">Share your details and we'll prepare your order message on WhatsApp.</p>
+      <form id="checkoutForm" class="checkout-form">
+        <label>Full name<input name="name" required autocomplete="name" placeholder="Your name"></label>
+        <label>Mobile number<input name="mobile" required inputmode="tel" pattern="[0-9+\-\s]{10,15}" autocomplete="tel" placeholder="10-digit mobile number"></label>
+        <label class="field-full">Full delivery address<textarea name="address" required rows="3" autocomplete="street-address" placeholder="House/flat, street, area"></textarea></label>
+        <div class="form-row"><label>City<input name="city" required autocomplete="address-level2" placeholder="City"></label><label>State<input name="state" required autocomplete="address-level1" placeholder="State"></label></div>
+        <label>Pincode<input name="pincode" required inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="postal-code" placeholder="6-digit pincode"></label>
+        <label class="field-full">Order notes (optional)<textarea name="notes" rows="2" placeholder="Any special instructions?"></textarea></label>
+        <div class="checkout-total field-full"><span>Order subtotal</span><strong id="checkoutSubtotal">₹0</strong></div>
+        <button class="btn btn-primary full-width field-full" type="submit">Continue to WhatsApp <span>↗</span></button>
+        <p class="form-disclaimer field-full">Your WhatsApp app will open with the order details. You must press Send to place the order. The seller will confirm availability, delivery charges and payment.</p>
+      </form>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
