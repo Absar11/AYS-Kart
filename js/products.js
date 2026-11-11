@@ -15,7 +15,7 @@ window.AYSKART_PRODUCTS = [
   },
   {
     id: "yamani-kids-laptop-combo",
-    name: "Yamani Kids Laptop",
+    name: "Yamani Kids Laptop Combo",
     category: "Kids & Learning",
     description: "Educational laptop for kids.",
     price: 4800,
