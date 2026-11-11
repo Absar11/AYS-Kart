@@ -24,6 +24,7 @@ function loadCart() {
 function saveCart() {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
   renderCart();
+  if ($("#checkoutSubtotal")) $("#checkoutSubtotal").textContent = money(cartTotal());
 }
 function cartQty() { return cart.reduce((sum, item) => sum + item.qty, 0); }
 function cartTotal() {
@@ -52,8 +53,12 @@ function changeQty(id, amount) {
   const item = cart.find(entry => entry.id === id);
   if (!item) return;
   item.qty += amount;
-  if (item.qty <= 0) cart = cart.filter(entry => entry.id !== id);
+  if (item.qty <= 0) {
+    cart = cart.filter(entry => entry.id !== id);
+    if (!cart.length) closeCheckout();
+  }
   saveCart();
+  renderCheckoutSummary();
 }
 function removeFromCart(id) {
   cart = cart.filter(item => item.id !== id);
@@ -92,9 +97,9 @@ function renderProducts() {
       </div>
       <div class="product-info">
         <div class="product-category">${escapeHTML(product.category || "General")}</div>
-        <h3 class="product-name">${escapeHTML(product.name)}</h3>
+        <h3 class="product-name" data-view="${escapeHTML(product.id)}" style="cursor:pointer">${escapeHTML(product.name)}</h3>
         <div class="product-bottom"><div><span class="price">${money(price)}</span>${oldPrice > price ? `<span class="old-price">${money(oldPrice)}</span>` : ""}</div>
-        <button class="add-button" data-add="${escapeHTML(product.id)}" aria-label="Add ${escapeHTML(product.name)} to cart">+</button></div>
+        <button class="btn-buy" data-buy="${escapeHTML(product.id)}" aria-label="Buy ${escapeHTML(product.name)} now">Buy Now</button></div>
       </div>
     </article>`;
   }).join("");
@@ -143,15 +148,50 @@ function openProduct(id) {
     <div><div class="product-category">${escapeHTML(product.category || "General")}</div><h2>${escapeHTML(product.name)}</h2>
       <p>${escapeHTML(product.description || "A thoughtful find from AysKart.")}</p>
       <div class="detail-price">${money(price)} ${Number(product.price) > price ? `<del>${money(product.price)}</del>` : ""}</div>
-      <button class="btn btn-primary" data-add="${escapeHTML(product.id)}">Add to cart <span>＋</span></button>
+      <button class="btn btn-primary" data-buy="${escapeHTML(product.id)}">Buy Now <span>↗</span></button>
     </div>
   </div>`;
   $("#productModalBackdrop").classList.add("show");
 }
 function closeProduct() { $("#productModalBackdrop").classList.remove("show"); }
+function buyNow(id) {
+  const product = productById(id);
+  if (!product) return;
+  cart = [{ id, qty: 1 }];
+  saveCart();
+  closeProduct();
+  openCheckout();
+}
+function renderCheckoutSummary() {
+  const summaryEl = $("#checkoutSummary");
+  if (!summaryEl) return;
+  if (!cart.length) {
+    summaryEl.innerHTML = `<div style="font-size:12px;color:var(--muted)">No product selected.</div>`;
+    return;
+  }
+  summaryEl.innerHTML = cart.map(item => {
+    const product = productById(item.id);
+    if (!product) return "";
+    const unitPrice = Number(product.discountPrice ?? product.price);
+    const lineTotal = unitPrice * item.qty;
+    return `<div class="checkout-product-card">
+      <img src="${escapeHTML(product.image)}" alt="${escapeHTML(product.name)}" onerror="this.src='https://placehold.co/120x120/F2F4F6/092B4C?text=Product'">
+      <div class="checkout-product-info">
+        <h4>${escapeHTML(product.name)}</h4>
+        <div class="checkout-product-price">${money(lineTotal)} <span style="font-size:11px;color:var(--muted);font-weight:500">(${money(unitPrice)} each)</span></div>
+        <div class="quantity-control">
+          <button type="button" data-qty="${escapeHTML(product.id)}" data-change="-1" aria-label="Decrease quantity">−</button>
+          <span>${item.qty}</span>
+          <button type="button" data-qty="${escapeHTML(product.id)}" data-change="1" aria-label="Increase quantity">+</button>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
 function openCheckout() {
-  if (!cart.length) { showToast("Your cart is empty"); return; }
+  if (!cart.length) { showToast("Please select a product"); return; }
   closeCart();
+  renderCheckoutSummary();
   $("#checkoutSubtotal").textContent = money(cartTotal());
   $("#checkoutBackdrop").classList.add("show");
   document.body.style.overflow = "hidden";
@@ -200,13 +240,15 @@ function submitCheckout(event) {
 }
 
 document.addEventListener("click", event => {
+  const buy = event.target.closest("[data-buy]");
   const add = event.target.closest("[data-add]");
   const view = event.target.closest("[data-view]");
   const category = event.target.closest("[data-category]");
   const qty = event.target.closest("[data-qty]");
   const remove = event.target.closest("[data-remove]");
-  if (add) { addToCart(add.dataset.add); closeProduct(); }
-  if (view) openProduct(view.dataset.view);
+  if (buy) { buyNow(buy.dataset.buy); }
+  else if (add) { addToCart(add.dataset.add); closeProduct(); }
+  else if (view) openProduct(view.dataset.view);
   if (category) { activeCategory = category.dataset.category; renderCategories(); renderProducts(); }
   if (qty) changeQty(qty.dataset.qty, Number(qty.dataset.change));
   if (remove) removeFromCart(remove.dataset.remove);
